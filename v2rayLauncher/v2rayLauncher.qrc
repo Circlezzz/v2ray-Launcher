@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/v2rayLauncher">
+        <file>Resources/icon.png</file>
+        <file>Resources/hj.png</file>
+        <file>Resources/picture.png</file>
+        <file>Resources/ss.ico</file>
+    </qresource>
+</RCC>
