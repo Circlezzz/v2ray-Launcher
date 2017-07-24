@@ -65,14 +65,27 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>110</y>
+     <x>280</x>
+     <y>200</y>
      <width>81</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/v2ray/v2ray-core&quot;&gt;&lt;span style=&quot; color:#0000ff;&quot;&gt;v2ray - github&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>170</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/boeing888/v2ray-Launcher&quot;&gt;&lt;span style=&quot; color:#0000ff;&quot;&gt;v2ray Launcher - github&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>

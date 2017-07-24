@@ -26,6 +26,7 @@ public:
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
+    QLabel *label_5;
 
     void setupUi(QDialog *About)
     {
@@ -48,7 +49,10 @@ public:
         label_3->setGeometry(QRect(280, 60, 61, 16));
         label_4 = new QLabel(About);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(270, 110, 81, 16));
+        label_4->setGeometry(QRect(280, 200, 81, 16));
+        label_5 = new QLabel(About);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(260, 170, 121, 16));
 
         retranslateUi(About);
 
@@ -62,7 +66,9 @@ public:
         label_2->setText(QApplication::translate("About", "v2ray Launcher V1.0", Q_NULLPTR));
         label_3->setText(QApplication::translate("About", "2017.7.24", Q_NULLPTR));
         label_4->setText(QApplication::translate("About", "<html><head/><body><p><a href=\"https://github.com/v2ray/v2ray-core\"><span style=\" color:#0000ff;\">v2ray - github</span></a></p></body></html>", Q_NULLPTR));
+        label_5->setText(QApplication::translate("About", "<html><head/><body><p><a href=\"https://github.com/boeing888/v2ray-Launcher\"><span style=\" color:#0000ff;\">v2ray Launcher - github</span></a></p></body></html>", Q_NULLPTR));
 		label_4->setOpenExternalLinks(true);
+		label_5->setOpenExternalLinks(true);
     } // retranslateUi
 
 };
