@@ -63,8 +63,8 @@ public:
     {
         About->setWindowTitle(QApplication::translate("About", "About", Q_NULLPTR));
         label->setText(QString());
-        label_2->setText(QApplication::translate("About", "v2ray Launcher V1.0", Q_NULLPTR));
-        label_3->setText(QApplication::translate("About", "2017.7.24", Q_NULLPTR));
+        label_2->setText(QApplication::translate("About", "v2ray Launcher V1.1", Q_NULLPTR));
+        label_3->setText(QApplication::translate("About", "2017.7.25", Q_NULLPTR));
         label_4->setText(QApplication::translate("About", "<html><head/><body><p><a href=\"https://github.com/v2ray/v2ray-core\"><span style=\" color:#0000ff;\">v2ray - github</span></a></p></body></html>", Q_NULLPTR));
         label_5->setText(QApplication::translate("About", "<html><head/><body><p><a href=\"https://github.com/boeing888/v2ray-Launcher\"><span style=\" color:#0000ff;\">v2ray Launcher - github</span></a></p></body></html>", Q_NULLPTR));
 		label_4->setOpenExternalLinks(true);

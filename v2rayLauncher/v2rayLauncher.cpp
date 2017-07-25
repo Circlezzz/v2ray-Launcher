@@ -64,6 +64,7 @@ void v2rayLauncher::startServer()
 {
 	if (!CreateProcess(TEXT(".\\wv2ray.exe"), NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
 	{
+		isStart = false;
 		QMessageBox::critical(this, "Error", QString(int(GetLastError())), QMessageBox::Ok);
 	}
 	else
@@ -71,6 +72,7 @@ void v2rayLauncher::startServer()
 		action_start->setDisabled(true);
 		action_stop->setDisabled(false);
 		action_restart->setEnabled(true);
+		isStart = true;
 	}
 }
 
@@ -84,9 +86,11 @@ void v2rayLauncher::stopServer()
 		action_start->setDisabled(false);
 		action_stop->setDisabled(true);
 		action_restart->setEnabled(true);
+		isStart = false;
 	}
 	else
 	{
+		isStart = true;
 		QMessageBox::critical(this, "Error", QString(int(GetLastError())), QMessageBox::Ok);
 	}
 }
@@ -99,6 +103,10 @@ void v2rayLauncher::restartServer()
 
 void v2rayLauncher::quitApp()
 {
+	if (isStart)
+	{
+		stopServer();
+	}
 	QApplication::quit();
 }
 

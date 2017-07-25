@@ -27,6 +27,8 @@ private:
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
 
+	bool isStart = false;
+
 	private slots:
 	void showAbout();
 	void startServer();
