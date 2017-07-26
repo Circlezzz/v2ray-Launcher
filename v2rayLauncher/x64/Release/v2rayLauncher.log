@@ -1,7 +1,2 @@
-﻿  About.cpp
-  moc_About.cpp
-  moc_v2rayLauncher.cpp
-  main.cpp
-  v2rayLauncher.cpp
-  正在生成代码...
+﻿  v2rayLauncher.cpp
   v2rayLauncher.vcxproj -> D:\Desktop\Code\Qt Code\v2rayLauncher\x64\Release\v2rayLauncher.exe

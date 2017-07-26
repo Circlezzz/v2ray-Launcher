@@ -43,7 +43,7 @@ v2rayLauncher::v2rayLauncher(QWidget *parent)
 
 	systemTray->setContextMenu(menu);
 	systemTray->setIcon(QIcon(":/v2rayLauncher/Resources/icon.png"));
-	systemTray->setToolTip("v2ray Launcher");
+	systemTray->setToolTip("v2ray Launcher [Stopped]");
 	systemTray->show();
 	connect(systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 		this, SLOT(trayiconActivated(QSystemTrayIcon::ActivationReason)));
@@ -51,7 +51,17 @@ v2rayLauncher::v2rayLauncher(QWidget *parent)
 	ZeroMemory(&si, sizeof(si));
 	si.cb = sizeof(si);
 	ZeroMemory(&pi, sizeof(pi));
+
 	ui->setupUi(this);
+
+	if (ProcessIsCreated())
+	{
+		QMessageBox::critical(this, "Error", "Another wv2ray.exe or v2ray.exe is running.", QMessageBox::Ok);
+		QTimer::singleShot(0, qApp, SLOT(quit()));
+	}
+	else {
+		startServer();
+	}
 }
 
 void v2rayLauncher::showAbout()
@@ -65,7 +75,7 @@ void v2rayLauncher::startServer()
 	if (!CreateProcess(TEXT(".\\wv2ray.exe"), NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
 	{
 		isStart = false;
-		QMessageBox::critical(this, "Error", QString(int(GetLastError())), QMessageBox::Ok);
+		QMessageBox::critical(this, "Error", QString("Error code: ")+QString::number(GetLastError(),10)+QString("\nCannot find wv2ray.exe in current directory, please check out. "), QMessageBox::Ok);
 	}
 	else
 	{
@@ -73,6 +83,7 @@ void v2rayLauncher::startServer()
 		action_stop->setDisabled(false);
 		action_restart->setEnabled(true);
 		isStart = true;
+		systemTray->setToolTip("v2ray Launcher [Started]");
 	}
 }
 
@@ -85,13 +96,14 @@ void v2rayLauncher::stopServer()
 		ZeroMemory(&pi, sizeof(pi));
 		action_start->setDisabled(false);
 		action_stop->setDisabled(true);
-		action_restart->setEnabled(true);
+		action_restart->setEnabled(false);
 		isStart = false;
+		systemTray->setToolTip("v2ray Launcher [Stopped]");
 	}
 	else
 	{
 		isStart = true;
-		QMessageBox::critical(this, "Error", QString(int(GetLastError())), QMessageBox::Ok);
+		QMessageBox::critical(this, "Error", QString("Error code: ") + QString::number(GetLastError(), 10) + QString("\nError occurred while closing the wv2ray.exe"), QMessageBox::Ok);
 	}
 }
 
@@ -121,4 +133,28 @@ void v2rayLauncher::trayiconActivated(QSystemTrayIcon::ActivationReason reason)
 	{
 		showMenu();
 	}
+}
+
+bool v2rayLauncher::ProcessIsCreated()
+{
+	PROCESSENTRY32 pe32;
+	ZeroMemory(&pe32, sizeof(pe32));
+	pe32.dwSize = sizeof(pe32);
+	TCHAR processName[15] = TEXT("wv2ray.exe");
+	TCHAR processName2[15] = TEXT("v2ray.exe");
+	HANDLE hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hProcessSnap == INVALID_HANDLE_VALUE)
+	{
+		return true;
+	}
+	bool bMore = Process32First(hProcessSnap, &pe32);
+	while (bMore)
+	{
+		if (wcscmp(processName, pe32.szExeFile)==0|| wcscmp(processName2, pe32.szExeFile) == 0)
+		{
+			return true;
+		}
+		bMore = Process32Next(hProcessSnap, &pe32);
+	}
+	return false;
 }

@@ -6,6 +6,9 @@
 #include "About.h"
 #include <Windows.h>
 #include <qmessagebox.h>
+#include "qtimer.h"
+#include "qapplication.h"
+#include <TlHelp32.h>
 
 class v2rayLauncher : public QMainWindow
 {
@@ -37,4 +40,5 @@ private:
 	void quitApp();
 	void showMenu();
 	void trayiconActivated(QSystemTrayIcon::ActivationReason reason);
+	bool ProcessIsCreated();
 };
