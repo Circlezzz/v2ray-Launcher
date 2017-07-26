@@ -9,6 +9,7 @@
 #include "qtimer.h"
 #include "qapplication.h"
 #include <TlHelp32.h>
+#include "qdesktopwidget.h"
 
 class v2rayLauncher : public QMainWindow
 {
@@ -26,6 +27,8 @@ private:
 	QAction *action_stop;
 	QAction *action_restart;
 	QAction *action_quit;
+
+	QDesktopWidget *desktop = QApplication::desktop();
 
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;

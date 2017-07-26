@@ -52,11 +52,13 @@ v2rayLauncher::v2rayLauncher(QWidget *parent)
 	si.cb = sizeof(si);
 	ZeroMemory(&pi, sizeof(pi));
 
+	move(desktop->width()/ 2, desktop->height() / 2);
+
 	ui->setupUi(this);
 
 	if (ProcessIsCreated())
 	{
-		QMessageBox::critical(this, "Error", "Another wv2ray.exe or v2ray.exe is running.", QMessageBox::Ok);
+		QMessageBox::critical(this, "Error", "Another v2rayLauncher.exe, v2ray.exe or wv2ray.exe is running.", QMessageBox::Ok);
 		QTimer::singleShot(0, qApp, SLOT(quit()));
 	}
 	else {
@@ -140,8 +142,10 @@ bool v2rayLauncher::ProcessIsCreated()
 	PROCESSENTRY32 pe32;
 	ZeroMemory(&pe32, sizeof(pe32));
 	pe32.dwSize = sizeof(pe32);
+	int count = 0;
 	TCHAR processName[15] = TEXT("wv2ray.exe");
 	TCHAR processName2[15] = TEXT("v2ray.exe");
+	TCHAR processName3[20] = TEXT("v2rayLauncher.exe");
 	HANDLE hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hProcessSnap == INVALID_HANDLE_VALUE)
 	{
@@ -150,11 +154,22 @@ bool v2rayLauncher::ProcessIsCreated()
 	bool bMore = Process32First(hProcessSnap, &pe32);
 	while (bMore)
 	{
-		if (wcscmp(processName, pe32.szExeFile)==0|| wcscmp(processName2, pe32.szExeFile) == 0)
+		if (wcscmp(processName, pe32.szExeFile) == 0 || wcscmp(processName2, pe32.szExeFile) == 0)
 		{
 			return true;
 		}
+		else if (wcscmp(processName3, pe32.szExeFile) == 0 )
+		{
+			count++;
+		}
 		bMore = Process32Next(hProcessSnap, &pe32);
 	}
-	return false;
+	if (count < 2)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
